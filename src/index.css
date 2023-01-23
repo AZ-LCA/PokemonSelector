@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* Used css I saw on the react-film as a pokedex is laid out in a very similar way */
+.pokemon-selector-app {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: stretch;
+  justify-content: space-around;
+
+}
+.pokemon-list {
+  position: relative;
+  padding: 20px;
+  flex-basis: 1 0 33.333333333%;
+  overflow-y: scroll;
+  height: 96vh;
+}
+.pokemon-select {
+  flex-basis: 1 0 66.666666666%;
+  padding: 20px;
+}
+/* End of used code */

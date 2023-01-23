@@ -7,8 +7,21 @@ export default class App extends Component {
     super(props)
     this.state = {
       search: '',
-      pokeList: []
+      pokeList: [],
+      starred: []
     }
+  }
+  handleStarToggle = (pkmn) => {
+    const starred = this.state.starred.slice();
+    const pkmnInd = starred.indexOf(pkmn);
+    if (parseFloat(pkmnInd) === -1) {
+      starred.push(pkmn);
+    } else {
+      starred.splice(pkmnInd, 1);
+    }
+    this.setState({
+      starred: starred
+    });
   }
   handleInput = (e) => {
     const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279'
@@ -21,7 +34,7 @@ export default class App extends Component {
       })
       return result;
     }).then(result => {
-      if (input.length > 2) {
+      if (input.length > 1) {
         const filteredMons = result.results.filter((pkmn) => {
           return pkmn.name.toLowerCase().includes(input.toLowerCase());
         })
@@ -43,11 +56,10 @@ export default class App extends Component {
       <>
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
-          <h1>Pokémon Search</h1>
-          <PokemonContainer search={this.state.search} handleInput={this.handleInput} pokeList={this.state.pokeList}/>
+          <PokemonContainer starred={this.state.starred} onStar={this.handleStarToggle} search={this.state.search} handleInput={this.handleInput} pokeList={this.state.pokeList}/>
         </div>
         <div className='pokemon-select'>
-          <h1> Selected Pokemon</h1>
+          <h1> Starred Pokémon</h1>
         </div>
       </div>
 

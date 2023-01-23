@@ -19,7 +19,14 @@ code {
   width: 100%;
   align-items: stretch;
   justify-content: space-around;
-
+  animation: colors 100s infinite;
+}
+@keyframes colors {
+  0% {background-color: #7FB3D5;}
+  25% {background-color: #A569BD;}
+  50% {background-color: #D98880;}
+  75% {background-color: #A569BD;}
+  100% {background-color: #7FB3D5;}
 }
 .pokemon-list {
   position: relative;
@@ -27,9 +34,75 @@ code {
   flex-basis: 1 0 33.333333333%;
   overflow-y: scroll;
   height: 96vh;
+  width: 33.33333333%;
+  left: 0;
 }
 .pokemon-select {
   flex-basis: 1 0 66.666666666%;
   padding: 20px;
+  width: 66.6666666%;
 }
 /* End of used code */
+
+.section-head {
+}
+
+body {
+  color: #ffffff;
+}
+
+input {
+  border: 2px solid #dddddd;
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
+  margin: 0px 0px 20px 0px;
+}
+
+.message {
+  font-style: italic;
+  font-weight: 380;
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 6px;
+
+}
+.dex-display {
+  background-color: #fde8b6;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 4px auto;
+  display: grid;
+  grid-template: auto / 1fr 3fr 1fr;
+  animation: darker_colors 100s infinite;
+  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
+}
+
+@keyframes darker_colors {
+  0% {background-color: #2471A3;}
+  25% {background-color: #7D3C98;}
+  50% {background-color: #A93226;}
+  75% {background-color: #7D3C98;}
+  100% {background-color: #2471A3;}
+}
+
+.pokemon-details {
+  grid-column: 2 / span 1;
+}
+.pokemon-sprite {
+  grid-column: 1 / span 1;
+}
+.sprite-unavailable {
+  margin: auto 16px auto 16px;
+  font-size: 16px;
+  text-align: justify;
+}
+.star-pokemon {
+  margin: auto;
+}
+.star {
+  box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
+  padding: 6px;
+  border-radius: 6px;
+  text-decoration: underline;
+}

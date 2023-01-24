@@ -11,7 +11,9 @@ export default class App extends Component {
       pokeList: [],
       starred: [],
       details: {},
-      current: ''      
+      currentName: '',
+      currentTier: '' ,
+      pokemon:{}
     }
   }
   handleStarToggle = (pkmn) => {
@@ -61,12 +63,14 @@ export default class App extends Component {
   handleDetailsClick = (pkmn) => {
     this.setState({
       details: pkmn.url,
-      current: pkmn.name
+      currentName: pkmn.name,
+      pokemon: pkmn,
+      currentTier: pkmn.tier
     })
   }
   handleTierPick = (e) => {
     e.preventDefault();
-    const name = this.state.current;
+    const name = this.state.currentName;
     let indexOfPkmn = -1;
     this.state.pokeList.forEach((pkmn, index) => {
 
@@ -79,7 +83,8 @@ export default class App extends Component {
     withTier[indexOfPkmn].tier = tierValue;
     console.log(withTier)
     this.setState({
-      starred: withTier
+      pokeList: withTier,
+      currentTier: withTier[indexOfPkmn].tier
     });
 
   }
@@ -92,7 +97,7 @@ export default class App extends Component {
         </div>
         <div className='pokemon-select'>
           <h1>Pokémon Details</h1>
-          <PokemonDetails onTierSubmit={this.handleTierPick} pokemon={this.state.details}/>
+          <PokemonDetails tier={this.state.currentTier}onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details}/>
         </div>
       </div>
 

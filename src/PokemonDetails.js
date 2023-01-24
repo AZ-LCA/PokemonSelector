@@ -51,8 +51,9 @@ export default class PokemonDetails extends Component {
                 <img className='details-img' src={this.state.shiny_sprite} alt={'No Sprite Available'}/>
                 <InfoContainer name={'Moves'} info={this.state.moves}/>
                 <InfoContainer name={'Abilities'} info={this.state.abilities}/>
-                {}
+                {this.props.tier && <p>Tier: {this.props.tier}</p>}
             </div>}
+            
             {apiURL.length>0 && <form onSubmit={(e) => this.props.onTierSubmit(e)} action="submit">
       <label className='tier' htmlFor="tier">Tier:</label>{' '}
       <select name="languages" className="tier">

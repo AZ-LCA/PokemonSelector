@@ -21,7 +21,7 @@ export default class PokemonContainer extends Component {
             chosenPkmn = this.props.starred;
         }
         const pokemonList = chosenPkmn.map((pokemon, key) => {
-            return <Pokemon key={key} url={pokemon.url} isStarred={this.props.starred.includes(pokemon)} onStar={() => this.props.onStar(pokemon)} filter={this.state.filter}/>
+            return <Pokemon key={key} url={pokemon.url} isStarred={this.props.starred} onStar={() => this.props.onStar(pokemon)} filter={this.state.filter}/>
         })
         return(
             <div>
@@ -36,8 +36,8 @@ export default class PokemonContainer extends Component {
                 </nav>
                 <div>
                     {pokemonList}
-                    {!this.props.pokeList.length && this.props.search.length <= 1 && <p className='message'>Enter Two Characters In The Pokémon's Name</p>}
-                    {!this.props.pokeList.length && this.props.search.length > 1 && <p className='message'>No Matching Pokémon</p>}
+                    {!this.props.pokeList.length && chosenPkmn !== this.props.starred && this.props.search.length <= 1 && <p className='message'>Enter Two Characters In The Pokémon's Name</p>}
+                    {!this.props.pokeList.length && chosenPkmn !== this.props.starred && this.props.search.length > 1 && <p className='message'>No Matching Pokémon</p>}
                 </div>
                 <div>
 

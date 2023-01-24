@@ -33,7 +33,7 @@ class Pokemon extends Component {
                         <h4>ID: {this.state.id}</h4>
                         <h5>{this.state.name}</h5>
                     </div>
-                    <Starred isStarred={this.props.isStarred} onStar={this.props.onStar} />
+                    <Starred isStarred={this.props.isStarred} name={this.state.name} onStar={this.props.onStar} />
                 </div>}
             </div>
 

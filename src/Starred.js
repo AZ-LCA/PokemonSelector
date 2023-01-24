@@ -10,10 +10,16 @@ export default class Starred extends Component {
         this.props.onStar();
     }
     render() {
+        let starred = false;
+        const isStarred = this.props.isStarred.forEach(pokemon => {
+            if (pokemon.name === this.props.name) {
+                starred = true;
+            }
+        })
         return(
             <>
-                {!this.props.isStarred && <div className='star-pokemon' onClick={this.handleClick}><p className='star'>Star</p></div>}
-                {this.props.isStarred && <div className='star-pokemon' onClick={this.handleClick}><p className='star'>Unstar</p></div>}
+                {!starred && <div className='star-pokemon' onClick={this.handleClick}><p className='star'>Star</p></div>}
+                {starred && <div className='star-pokemon' onClick={this.handleClick}><p className='star'>Unstar</p></div>}
             </>
         );
     }

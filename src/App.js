@@ -13,7 +13,14 @@ export default class App extends Component {
   }
   handleStarToggle = (pkmn) => {
     const starred = this.state.starred.slice();
-    const pkmnInd = starred.indexOf(pkmn);
+    const boolPkmnList = starred.map(pokemon => {
+      if(pkmn.name === pokemon.name) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    const pkmnInd = boolPkmnList.indexOf(true);
     if (parseFloat(pkmnInd) === -1) {
       starred.push(pkmn);
     } else {

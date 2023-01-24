@@ -66,7 +66,7 @@ input {
   border: 2px solid #dddddd;
   padding: 6px;
   border-radius: 6px;
-  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
+  box-shadow: 6px 10px 10px 6px rgba(0,0,0,0.2);
 }
 
 .message {
@@ -147,4 +147,24 @@ input {
 .details-text {
   padding: 4px;
   margin: auto;
+}
+.tier {
+  padding: 7px;
+  border: 0px;
+  border-radius: 6px;
+  box-shadow: 4px 7px 7px 4px rgba(0,0,0,0.2);
+  animation: darker_colors 100s infinite;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 720;
+}
+.button {
+  animation: darker_colors 100s infinite;
+  color: #ffffff;
+  border: 0px;
+  padding: 7px;
+  box-shadow: 4px 7px 7px 4px rgba(0,0,0,0.2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 720;
 }

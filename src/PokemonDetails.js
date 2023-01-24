@@ -13,6 +13,7 @@ export default class PokemonDetails extends Component {
             id: '',
             moves: [],
             abilities: []
+
         }
     }
     render() {
@@ -24,9 +25,11 @@ export default class PokemonDetails extends Component {
                 const abilities = results.abilities.map(ability => {
                     return ability.ability.name;
                 })
+                abilities.sort();
                 const moves = results.moves.map(move => {
                     return move.move.name;
                 })
+                moves.sort();
                 const name = results.name[0].toUpperCase() + results.name.slice(1);
                 this.setState({
                     abilities: abilities,
@@ -48,7 +51,19 @@ export default class PokemonDetails extends Component {
                 <img className='details-img' src={this.state.shiny_sprite} alt={'No Sprite Available'}/>
                 <InfoContainer name={'Moves'} info={this.state.moves}/>
                 <InfoContainer name={'Abilities'} info={this.state.abilities}/>
+                {}
             </div>}
+            {apiURL.length>0 && <form onSubmit={(e) => this.props.onTierSubmit(e)} action="submit">
+      <label className='tier' htmlFor="tier">Tier:</label>{' '}
+      <select name="languages" className="tier">
+        <option value="S">S</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select>{' '}
+      <input className='button' type="submit" value="Submit" />
+</form>}
         </>
 
         );

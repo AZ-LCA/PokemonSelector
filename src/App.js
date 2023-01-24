@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import PokemonContainer from './PokemonContainer';
+import PokemonDetails from './PokemonDetails';
 
 export default class App extends Component {
   constructor(props) {
@@ -8,7 +9,9 @@ export default class App extends Component {
     this.state = {
       search: '',
       pokeList: [],
-      starred: []
+      starred: [],
+      details: {}
+      
     }
   }
   handleStarToggle = (pkmn) => {
@@ -54,19 +57,22 @@ export default class App extends Component {
         })
       }
     })
-
-    
-
+  }
+  handleDetailsClick = (pkmn) => {
+    this.setState({
+      details: pkmn.url
+    })
   }
   render() {
     return(
       <>
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
-          <PokemonContainer starred={this.state.starred} onStar={this.handleStarToggle} search={this.state.search} handleInput={this.handleInput} pokeList={this.state.pokeList}/>
+          <PokemonContainer onDetailsClick={this.handleDetailsClick} starred={this.state.starred} onStar={this.handleStarToggle} search={this.state.search} handleInput={this.handleInput} pokeList={this.state.pokeList}/>
         </div>
         <div className='pokemon-select'>
-          <h1> Starred Pokémon</h1>
+          <h1>Pokémon Details</h1>
+          <PokemonDetails pokemon={this.state.details}/>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import PokemonSprite from './PokemonSprite';
 import Starred from './Starred';
+import DetailsButton from './DetailsButton';
 
 class Pokemon extends Component {
     constructor(props) {
@@ -19,11 +20,18 @@ class Pokemon extends Component {
         axios.get(apiURL).then(response => {
             return response.data
         }).then(result => {
+            const name = result.name[0].toUpperCase() + result.name.slice(1);
             this.setState({
-                name: result.name,
+                name: name,
                 id: result.id,
                 sprites: result.sprites
             })
+        })
+        let starred = false;
+        const isStarred = this.props.isStarred.forEach(pokemon => {
+            if (pokemon.name === this.state.name.toLowerCase()) {
+                starred = true;
+            }
         })
         return(
             <div >
@@ -33,7 +41,8 @@ class Pokemon extends Component {
                         <h4>ID: {this.state.id}</h4>
                         <h5>{this.state.name}</h5>
                     </div>
-                    <Starred isStarred={this.props.isStarred} name={this.state.name} onStar={this.props.onStar} />
+                    <DetailsButton onDetailsClick={this.props.onDetailsClick}/>
+                    <Starred isStarred={starred} onStar={this.props.onStar} />
                 </div>}
             </div>
 

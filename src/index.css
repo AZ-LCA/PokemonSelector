@@ -57,8 +57,7 @@ code {
   text-align: center;
   width: 50px;
 }
-.section-head {
-}
+
 body {
   color: #ffffff;
 }
@@ -80,12 +79,11 @@ input {
 
 }
 .dex-display {
-  background-color: #fde8b6;
   padding: 10px;
   border-radius: 10px;
   margin: 4px auto;
   display: grid;
-  grid-template: auto / 1fr 3fr 1fr;
+  grid-template: auto / 1fr 2fr 1fr 1fr;
   animation: darker_colors 100s infinite;
   box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
 }
@@ -112,10 +110,41 @@ input {
 .star-pokemon {
   margin: auto;
 }
-.star {
+.button {
   box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
   padding: 6px;
   border-radius: 6px;
   text-decoration: underline;
 }
-
+.details-button {
+  margin: auto;
+}
+.details-img {
+  width: 12vw;
+  margin: auto;
+  border:1px solid #dddddd;
+  border-radius: 6px;
+  padding: 6px;
+}
+.details-display {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 4px auto;
+  display: grid;
+  grid-template-rows: 1fr 4fr 3fr;
+  grid-template-columns: 1fr 1fr;
+  animation: darker_colors 100s infinite;
+  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
+}
+.hidden-overflow {
+  height: 100px;
+  overflow-y: scroll;
+  border:1px solid #dddddd;
+  border-radius: 6px;
+  padding: 4px;
+  margin: 4px;
+}
+.details-text {
+  padding: 4px;
+  margin: auto;
+}

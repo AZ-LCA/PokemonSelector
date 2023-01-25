@@ -1,140 +1,110 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import PokemonContainer from './PokemonContainer';
-import PokemonDetails from './PokemonDetails';
-import InfoContainer from './InfoContainer';
+import PokemonList from './PokemonList';
+import axios, { AxiosHeaders } from 'axios';
+import CreateFakemon from './CreateFakemon';
 
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      search: '',
-      pokeList: [],
-      starred: [],
-      details: {},
-      currentName: '',
-      currentTier: '' ,
-      pokemon:{},
-      abilities: [],
-      moves: [],
-      name: '',
-      id: '',
-      sprite: '',
-      shiny_sprite: ''
+
+    this.state={
+      filter: 'all',
+      mainList: [],
+      allUrls: [],
+      starredList: [],
+      userInput: '',
+      chosenPokemon: {},
+      createFakemon: false,
+      fakemonName: '',
+      fakemonMoves: ['','','',''],
+      fakemonAbility: ''
     }
   }
-  handleStarToggle = (pkmn) => {
-    const starred = this.state.starred.slice();
-    const boolPkmnList = starred.map(pokemon => {
-      if(pkmn.name === pokemon.name) {
-        return true;
-      } else {
-        return false;
+  handleCreateFakemonToggle = () => {
+    this.setState(prevState => {
+      return {
+        createFakemon: !prevState.createFakemon
       }
+    });
+  }
+  handleFilterChange = (filter) => {
+    this.setState({
+      filter: filter
     })
-    const pkmnInd = boolPkmnList.indexOf(true);
-    if (parseFloat(pkmnInd) === -1) {
-      starred.push(pkmn);
+  }
+  handleStarToggle = (pokemon) => {
+    const starredList = this.state.starredList.slice();
+    const pkmnIndex = starredList.indexOf(pokemon);
+    if (parseFloat(pkmnIndex) === -1) {
+      starredList.push(pokemon);
     } else {
-      starred.splice(pkmnInd, 1);
+      starredList.splice(pkmnIndex, 1);
     }
     this.setState({
-      starred: starred
-    });
+      starredList: starredList
+    })
   }
-  handleInput = (e) => {
-    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279'
+  handleSearchInput = (e) => {
     const input = e.target.value;
-    axios.get(apiURL).then(response => {
-      return response.data
-    }).then(result => {
-      this.setState({
-        search: input
-      })
-      return result;
-    }).then(result => {
-      if (input.length > 1) {
-        const filteredMons = result.results.filter((pkmn) => {
-          return pkmn.name.toLowerCase().includes(input.toLowerCase());
-        })
-        this.setState({
-          pokeList: filteredMons
-        })
-      } else {
-        this.setState({
-          pokeList: []
-        })
-      }
-    })
-  }
-  handleDetailsClick = (pkmn) => {
     this.setState({
-      details: pkmn.url,
-      currentName: pkmn.name,
-      pokemon: pkmn,
-      currentTier: pkmn.tier
+      search: input
     })
-    const apiURL = pkmn.url
-        console.log(apiURL)
-        if (apiURL.length>0) {
-            axios.get(apiURL).then(response => {
-                return response.data
-                console.log(response.data);
-            }).then(results => {
-                const abilities = results.abilities.map(ability => {
-                    return ability.ability.name;
-                })
-                abilities.sort();
-                const moves = results.moves.map(move => {
-                    return move.move.name;
-                })
-                moves.sort();
-                const name = results.name[0].toUpperCase() + results.name.slice(1);
-                this.setState({
-                    abilities: abilities,
-                    moves: moves,
-                    id: results.id,
-                    name: name,
-                    sprite: results.sprites.front_default,
-                    shiny_sprite: results.sprites.front_shiny
-                })
-                console.log(this.state.abilities)
-            })
-        }
   }
-  handleTierPick = (e) => {
+  handleSearchClick = (e) => {
     e.preventDefault();
-    const name = this.state.currentName;
-    const tierValue = e.target[0].value
-    let indexOfStrPkmn = -1;
-    this.state.starred.forEach((pkmn, index) => {
-
-      if (pkmn.name === name) {
-        indexOfStrPkmn = index;
-      }
+    console.log(this.state.mainList.length)
+    
+  }
+  componentDidMount() {
+    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1008';
+    axios.get(apiURL).then(response => response.data)
+    .then(result => {
+      return result.results
+    }).then(results => {
+      const urls = results.map(result => {
+        return result.url
+      })
+      return urls
+    }).then(urls => {
+      this.setState({
+        allUrls: urls
+      })
+      return urls;
+    }).then(urls => Promise.all(urls.map((url) => {axios.get(url).then(response => {
+      const item = response.data;
+      this.setState(prevState => {
+        return{
+          mainList: [...prevState.mainList, item]
+        }
+      })
+    })}))
+    ).catch(err => {
+      console.log(err)
     })
-
-    const withStarTier = this.state.starred.slice();
-    withStarTier[indexOfStrPkmn].tier = tierValue;
-    this.setState({
-      starred: withStarTier,
-      currentTier: withStarTier[indexOfStrPkmn].tier
-    });
 
   }
   render() {
-    return(
+    return (
       <>
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
-          <PokemonContainer onDetailsClick={this.handleDetailsClick} starred={this.state.starred} onStar={this.handleStarToggle} search={this.state.search} handleInput={this.handleInput} pokeList={this.state.pokeList}/>
+          <PokemonList 
+          isCreateFakemon = {this.state.createFakemon}
+          onCreateFakemonToggle = {this.handleCreateFakemonToggle}
+          onStarToggle = {this.handleStarToggle} 
+          filter = {this.state.filter}
+          onFilterChange = {this.handleFilterChange}
+          starredList = {this.state.starredList} 
+          mainList = {this.state.mainList} 
+          search = {this.state.search} 
+          onSearchInput = {this.handleSearchInput} 
+          onSearchClick = {this.handleSearchClick}/>
         </div>
-        <div className='pokemon-select'>
-          <h1>Pokémon Details</h1>
-          <PokemonDetails tier={this.state.currentTier} starred={this.state.starred} currentPkmn={this.state.pokemon} onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details} abilities={this.state.abilities} moves={this.state.moves} id={this.state.id} name={this.state.name} sprite={this.state.sprite} shiny_sprite={this.state.shiny_sprite}/>
+        <div className='pokemon-details'>
+          {this.state.createFakemon && <CreateFakemon/>}
+          {!this.state.createFakemon && <h1>Pokémon Details</h1>}
         </div>
       </div>
-
       </>
     );
   }

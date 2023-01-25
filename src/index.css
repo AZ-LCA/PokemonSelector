@@ -1,17 +1,17 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@keyframes colors {
+  0% {background-color: #7FB3D5;}
+  25% {background-color: #A569BD;}
+  50% {background-color: #D98880;}
+  75% {background-color: #A569BD;}
+  100% {background-color: #7FB3D5;}
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@keyframes darker_colors {
+  0% {background-color: #2471A3;}
+  25% {background-color: #7D3C98;}
+  50% {background-color: #A93226;}
+  75% {background-color: #7D3C98;}
+  100% {background-color: #2471A3;}
 }
-/* Used css I saw on the react-film as a pokedex is laid out in a very similar way */
 .pokemon-selector-app {
   position: relative;
   display: flex;
@@ -20,13 +20,34 @@ code {
   align-items: stretch;
   justify-content: space-around;
   animation: colors 100s infinite;
+  color: whitesmoke;
 }
-@keyframes colors {
-  0% {background-color: #7FB3D5;}
-  25% {background-color: #A569BD;}
-  50% {background-color: #D98880;}
-  75% {background-color: #A569BD;}
-  100% {background-color: #7FB3D5;}
+button {
+  animation: darker_colors 100s infinite;
+  color: #ffffff;
+  border: 0px;
+  border-radius: 6px;
+  padding: 7px;
+  box-shadow: 4px 7px 7px 4px rgba(0,0,0,0.2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 720;
+  margin: 10px;
+}
+input {
+  border: 0px;
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 6px 10px 10px 6px rgba(0,0,0,0.2);
+}
+.dex-entry {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 4px auto;
+  display: grid;
+  grid-template: auto / 1fr 2fr 1fr 1fr;
+  animation: darker_colors 100s infinite;
+  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
 }
 .pokemon-list {
   position: relative;
@@ -38,138 +59,15 @@ code {
   width: 33.33333333%;
   left: 0;
 }
-.pokemon-select {
+.pokemon-details {
   flex-basis: 1 0 66.666666666%;
   padding: 20px;
   width: 66.6666666%;
-}
-/* End of used code */
-.headers {
-  margin: 40px auto;
-}
-.header {
-  display: inline;
-  box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
-  padding: 10px 30px;
-  margin: 20px 4px 20px 4px;
-  border-radius: 6px;
-  overflow: hidden;
-  text-align: center;
-  width: 50px;
-}
-
-body {
-  color: #ffffff;
-}
-
-input {
-  border: 2px solid #dddddd;
-  padding: 6px;
-  border-radius: 6px;
-  box-shadow: 6px 10px 10px 6px rgba(0,0,0,0.2);
-}
-
-.message {
-  font-style: italic;
-  font-weight: 380;
-  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
-  padding: 10px;
-  border-radius: 6px;
-  text-align: center;
-
-}
-.dex-display {
-  padding: 10px;
-  border-radius: 10px;
-  margin: 4px auto;
-  display: grid;
-  grid-template: auto / 1fr 2fr 1fr 1fr;
-  animation: darker_colors 100s infinite;
-  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
-}
-
-@keyframes darker_colors {
-  0% {background-color: #2471A3;}
-  25% {background-color: #7D3C98;}
-  50% {background-color: #A93226;}
-  75% {background-color: #7D3C98;}
-  100% {background-color: #2471A3;}
-}
-
-.pokemon-details {
   grid-column: 2 / span 1;
 }
 .pokemon-sprite {
   grid-column: 1 / span 1;
 }
-.sprite-unavailable {
-  margin: auto 16px auto 16px;
-  font-size: 16px;
-  text-align: justify;
-}
-.star-pokemon {
-  margin: auto;
-}
-.button {
-  box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
-  padding: 6px;
-  border-radius: 6px;
-  text-decoration: underline;
-}
-.details-button {
-  margin: auto;
-}
-.details-img {
-  width: 12vw;
-  margin: auto;
-  border:1px solid #dddddd;
-  border-radius: 6px;
-  padding: 6px;
-}
-.details-display {
-  padding: 10px;
-  border-radius: 10px;
-  margin: 4px auto;
-  display: grid;
-  grid-template-rows: 1fr 4fr 3fr;
-  grid-template-columns: 1fr 1fr;
-  animation: darker_colors 100s infinite;
-  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
-}
-.hidden-overflow {
-  height: 100px;
-  overflow-y: scroll;
-  border:1px solid #dddddd;
-  border-radius: 6px;
-  padding: 4px;
-  margin: 4px;
-}
-.details-text {
-  padding: 4px;
-  margin: auto;
-}
-.tier {
-  padding: 7px;
-  border: 0px;
-  border-radius: 6px;
-  box-shadow: 4px 7px 7px 4px rgba(0,0,0,0.2);
-  animation: darker_colors 100s infinite;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 720;
-}
-.button {
-  animation: darker_colors 100s infinite;
-  color: #ffffff;
-  border: 0px;
-  padding: 7px;
-  box-shadow: 4px 7px 7px 4px rgba(0,0,0,0.2);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 720;
-}
-.details-tier {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 720;
+.star-button {
+  grid-column: 4 / span 1;
 }

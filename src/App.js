@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import PokemonContainer from './PokemonContainer';
 import PokemonDetails from './PokemonDetails';
+import InfoContainer from './InfoContainer';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,7 +14,13 @@ export default class App extends Component {
       details: {},
       currentName: '',
       currentTier: '' ,
-      pokemon:{}
+      pokemon:{},
+      abilities: [],
+      moves: [],
+      name: '',
+      id: '',
+      sprite: '',
+      shiny_sprite: ''
     }
   }
   handleStarToggle = (pkmn) => {
@@ -67,24 +74,51 @@ export default class App extends Component {
       pokemon: pkmn,
       currentTier: pkmn.tier
     })
+    const apiURL = pkmn.url
+        console.log(apiURL)
+        if (apiURL.length>0) {
+            axios.get(apiURL).then(response => {
+                return response.data
+                console.log(response.data);
+            }).then(results => {
+                const abilities = results.abilities.map(ability => {
+                    return ability.ability.name;
+                })
+                abilities.sort();
+                const moves = results.moves.map(move => {
+                    return move.move.name;
+                })
+                moves.sort();
+                const name = results.name[0].toUpperCase() + results.name.slice(1);
+                this.setState({
+                    abilities: abilities,
+                    moves: moves,
+                    id: results.id,
+                    name: name,
+                    sprite: results.sprites.front_default,
+                    shiny_sprite: results.sprites.front_shiny
+                })
+                console.log(this.state.abilities)
+            })
+        }
   }
   handleTierPick = (e) => {
     e.preventDefault();
     const name = this.state.currentName;
-    let indexOfPkmn = -1;
-    this.state.pokeList.forEach((pkmn, index) => {
+    const tierValue = e.target[0].value
+    let indexOfStrPkmn = -1;
+    this.state.starred.forEach((pkmn, index) => {
 
       if (pkmn.name === name) {
-        indexOfPkmn = index;
+        indexOfStrPkmn = index;
       }
     })
-    const tierValue = e.target[0].value
-    const withTier = this.state.pokeList.slice();
-    withTier[indexOfPkmn].tier = tierValue;
-    console.log(withTier)
+
+    const withStarTier = this.state.starred.slice();
+    withStarTier[indexOfStrPkmn].tier = tierValue;
     this.setState({
-      pokeList: withTier,
-      currentTier: withTier[indexOfPkmn].tier
+      starred: withStarTier,
+      currentTier: withStarTier[indexOfStrPkmn].tier
     });
 
   }
@@ -97,7 +131,7 @@ export default class App extends Component {
         </div>
         <div className='pokemon-select'>
           <h1>Pokémon Details</h1>
-          <PokemonDetails tier={this.state.currentTier}onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details}/>
+          <PokemonDetails tier={this.state.currentTier} starred={this.state.starred} onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details} abilities={this.state.abilities} moves={this.state.moves} id={this.state.id} name={this.state.name} sprite={this.state.sprite} shiny_sprite={this.state.shiny_sprite}/>
         </div>
       </div>
 

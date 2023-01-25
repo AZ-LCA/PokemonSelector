@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PokemonList from './PokemonList';
-import axios, { AxiosHeaders } from 'axios';
+import axios from 'axios';
 import CreateFakemon from './CreateFakemon';
 
 export default class App extends Component {
@@ -19,6 +19,21 @@ export default class App extends Component {
       fakemonMoves: ['','','',''],
       fakemonAbility: ''
     }
+  }
+  handleEditFakemonName = (e) => {
+    this.setState({
+      fakemonName: e.target.value
+    })
+  }
+  handleNewFakemon = (e) => {
+    e.preventDefault()
+    const name = this.state.fakemonName;
+    this.setState(prevState => {
+      return {
+        starredList: [...prevState.starredList,{name: name}],
+        fakemonName: ''
+      }
+    })
   }
   handleCreateFakemonToggle = () => {
     this.setState(prevState => {
@@ -101,7 +116,12 @@ export default class App extends Component {
           onSearchClick = {this.handleSearchClick}/>
         </div>
         <div className='pokemon-details'>
-          {this.state.createFakemon && <CreateFakemon/>}
+          {this.state.createFakemon && <CreateFakemon 
+          onEditFakemonName = {this.handleEditFakemonName}
+          onNewFakemon = {this.handleNewFakemon}
+          fakemonName={this.state.fakemonName} 
+          fakemonMoves={this.state.fakemonMoves} 
+          fakemonAbility={this.state.fakemonAbility}/>}
           {!this.state.createFakemon && <h1>Pokémon Details</h1>}
         </div>
       </div>

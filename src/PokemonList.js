@@ -27,8 +27,8 @@ export default class PokemonList extends Component {
             <div>
                 <h1 className='section-head'>Search Pokémon</h1>
                 <div>
-                    <button onClick={() => {this.props.onFilterChange('all')}}>All</button>
-                    <button onClick={() => {this.props.onFilterChange('starred')}}>Starred</button>
+                    <button onClick={() => {this.props.onFilterChange('all')}}>All Pokémon</button>
+                    <button onClick={() => {this.props.onFilterChange('starred')}}>Starred Pokémon And Fakemon</button>
                     {!this.props.isCreateFakemon && <button onClick={() => {this.props.onCreateFakemonToggle()}}>Create Fakemon</button>}
                     {this.props.isCreateFakemon && <button onClick={() => {this.props.onCreateFakemonToggle()}}>Display Details</button>}
                 </div>

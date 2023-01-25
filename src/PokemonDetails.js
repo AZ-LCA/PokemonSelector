@@ -15,7 +15,7 @@ function PokemonDetails(props) {
                 {props.tier && <p>Tier: {props.tier}</p>}
             </div>}
             
-            {props.starred.name === props.pokemon.name && props.pokemon.length>0 && <form onSubmit={(e) => props.onTierSubmit(e)} action="submit">
+            {props.starred.includes(props.currentPkmn) && props.pokemon.length>0 && <form onSubmit={(e) => props.onTierSubmit(e)} action="submit">
                 <label className='tier' htmlFor="tier">Tier:</label>{' '}
                 <select name="languages" className="tier">
                     <option value="S">S</option>

@@ -131,7 +131,7 @@ export default class App extends Component {
         </div>
         <div className='pokemon-select'>
           <h1>Pokémon Details</h1>
-          <PokemonDetails tier={this.state.currentTier} starred={this.state.starred} onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details} abilities={this.state.abilities} moves={this.state.moves} id={this.state.id} name={this.state.name} sprite={this.state.sprite} shiny_sprite={this.state.shiny_sprite}/>
+          <PokemonDetails tier={this.state.currentTier} starred={this.state.starred} currentPkmn={this.state.pokemon} onTierSubmit={this.handleTierPick} pokeList={this.state.pokeList} comparison={this.state.pokemon} pokemon={this.state.details} abilities={this.state.abilities} moves={this.state.moves} id={this.state.id} name={this.state.name} sprite={this.state.sprite} shiny_sprite={this.state.shiny_sprite}/>
         </div>
       </div>
 

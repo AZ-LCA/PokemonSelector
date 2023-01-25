@@ -12,7 +12,7 @@ function PokemonDetails(props) {
                 <img className='details-img' src={props.shiny_sprite} alt={'No Sprite Available'}/>
                 <InfoContainer name={'Moves'} info={props.moves}/>
                 <InfoContainer name={'Abilities'} info={props.abilities}/>
-                {props.tier && <p>Tier: {props.tier}</p>}
+                {props.tier && <p className='details-tier'>{props.tier}-Tier</p>}
             </div>}
             
             {props.starred.includes(props.currentPkmn) && props.pokemon.length>0 && <form onSubmit={(e) => props.onTierSubmit(e)} action="submit">

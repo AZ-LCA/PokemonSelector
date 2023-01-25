@@ -25,6 +25,23 @@ export default class App extends Component {
       fakemonName: e.target.value
     })
   }
+  handleDeleteClick = (fakemon) => {
+    const index = this.state.starredList.indexOf(fakemon);
+    const starredList = this.state.starredList.slice();
+    starredList.splice(index, 1);
+    this.setState({
+      starredList: starredList
+    })
+  }
+  handleEditClick = (fakemon) => {
+    const newName = window.prompt("Enter a new Fakemon Name: ");
+    const index = this.state.starredList.indexOf(fakemon);
+    const starredList = this.state.starredList.slice();
+    starredList[index].name = newName;
+    this.setState({
+      starredList: starredList
+    })
+  }
   handleNewFakemon = (e) => {
     e.preventDefault()
     const name = this.state.fakemonName;
@@ -104,6 +121,8 @@ export default class App extends Component {
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
           <PokemonList 
+          onDeleteFakemon = {this.handleDeleteClick}
+          onEditFakemon = {this.handleEditClick}
           isCreateFakemon = {this.state.createFakemon}
           onCreateFakemonToggle = {this.handleCreateFakemonToggle}
           onStarToggle = {this.handleStarToggle} 

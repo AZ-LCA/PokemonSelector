@@ -86,6 +86,7 @@ export default class App extends Component {
   }
   //This handles toggling whether a pokémon is starred or not when the star button is clicked in PokemonEntry
   handleStarToggle = (pokemon) => {
+    console.log(this.state.starredList);
     const starredList = this.state.starredList.slice();
     const pkmnIndex = starredList.indexOf(pokemon);
     if (parseFloat(pkmnIndex) === -1) {
@@ -114,11 +115,17 @@ export default class App extends Component {
   //This runs handleStarToggle for each selected item
   handleClearSelected = (e) => {
     e.preventDefault();
-    this.state.clearList.forEach(pokemon => {
-      this.handleStarToggle(pokemon);
-    });
+    console.log(this.state.clearList);
+    const clearList = this.state.clearList.slice()
+    let starredList = this.state.starredList.slice()
+    clearList.forEach(selected => {
+      starredList = starredList.filter(pokemon => {
+        return pokemon !== selected;
+      })
+    })
     this.setState({
-      clearList: []
+        clearList: [],
+        starredList: starredList
     })
   }
   //This handles the user input when filtering the mainList

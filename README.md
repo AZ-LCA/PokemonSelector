@@ -40,11 +40,11 @@ Expand upon the fakemon creation method - types, moves, abilities - EXTRA - give
 
 Add pokémon types to the details view
 
-- Make the website multipage via React Router
+Make the website multipage via React Router
 
-- Refactor code to use React Hooks
+Refactor code to use React Hooks
 
-- Make different list displays easier to tell apart
+Make different list displays easier to tell apart
 
 ## New concepts learned
 

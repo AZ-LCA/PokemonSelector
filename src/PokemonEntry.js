@@ -11,6 +11,8 @@ function PokemonEntry(props) {
             <div>
                 {props.pokemon.id && <Starred isStarred={props.isStarred} pokemon={props.pokemon} onStarToggle={props.onStarToggle}/>}
                 <button onClick={() => {props.onDetailsClick(props.pokemon)}}>Details</button>
+                {props.isStarred && !props.isSelectedForClear && <button onClick={() => {props.onSelectPokemonClear(props.pokemon)}}>Select</button>}
+                {props.isStarred && props.isSelectedForClear && <button onClick={() => {props.onSelectPokemonClear(props.pokemon)}}>unSelect</button>}
                 {!props.pokemon.id && <button onClick={() => {props.onEditFakemon(props.pokemon)}}>Edit</button>}
                 {!props.pokemon.id && <button onClick={() => props.onDeleteFakemon(props.pokemon)}>Delete</button>}
             </div>

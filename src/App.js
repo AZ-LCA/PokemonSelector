@@ -20,7 +20,8 @@ export default class App extends Component {
       showDetails: false,
       fakemonName: '',
       fakemonMoves: ['','','',''],
-      fakemonAbility: ''
+      fakemonAbility: '',
+      clearList: []
     }
   }
   //This handles when the user clicks the details button located in PokemonEntry
@@ -96,11 +97,42 @@ export default class App extends Component {
       starredList: starredList
     })
   }
+  //This adds an item to the clear list
+  handleSelectClearToggle = (pokemon) => {
+    console.log(this.state.clearList.slice())
+    const clearList = this.state.clearList.slice();
+    const pkmnIndex = clearList.indexOf(pokemon);
+    if (parseFloat(pkmnIndex) === -1) {
+      clearList.push(pokemon);
+    } else {
+      clearList.splice(pkmnIndex, 1);
+    }
+    this.setState({
+      clearList: clearList
+    })
+  }
+  //This runs handleStarToggle for each selected item
+  handleClearSelected = (e) => {
+    e.preventDefault();
+    this.state.clearList.forEach(pokemon => {
+      this.handleStarToggle(pokemon);
+    });
+    this.setState({
+      clearList: []
+    })
+  }
   //This handles the user input when filtering the mainList
   handleSearchInput = (e) => {
     const input = e.target.value;
     this.setState({
       search: input
+    })
+  }
+  //Handles when clear button is made
+  handleClearClick = (e) => {
+    e.preventDefault()
+    this.setState({
+      starredList: []
     })
   }
   //This calls when the component has mounted
@@ -142,6 +174,10 @@ export default class App extends Component {
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
           <PokemonList 
+          clearList = {this.state.clearList}
+          onClearSelected= {this.handleClearSelected}
+          onSelectPokemonClear= {this.handleSelectClearToggle}
+          onClearClick= {this.handleClearClick}
           onDetailsClick = {this.handleDetailsClick}
           onDeleteFakemon = {this.handleDeleteClick}
           onEditFakemon = {this.handleEditClick}

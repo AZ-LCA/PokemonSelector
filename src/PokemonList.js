@@ -16,6 +16,8 @@ function PokemonList(props) {
     //Sets up each PokemonEntry
     const dispPokemon = pkmnList.map((pokemon, index) => {
         return <PokemonEntry 
+        isSelectedForClear = {props.clearList.includes(pokemon)}
+        onSelectPokemonClear = {props.onSelectPokemonClear}
         onDetailsClick = {props.onDetailsClick}
         onDeleteFakemon = {props.onDeleteFakemon}
         onEditFakemon = {props.onEditFakemon}
@@ -30,6 +32,8 @@ function PokemonList(props) {
             <div>
                 <button onClick={() => {props.onFilterChange('all')}}>All Pokémon</button>
                 <button onClick={() => {props.onFilterChange('starred')}}>Starred Pokémon And Fakemon</button>
+                <button onClick={(e) => {props.onClearClick(e)}}>Clear Starred</button>
+                <button onClick={(e) => {props.onClearSelected(e)}}>Clear Selected</button>
                 {!props.isCreateFakemon && <button onClick={() => {props.onCreateFakemonToggle()}}>Create Fakemon</button>}
                 {props.isCreateFakemon && <button onClick={() => {props.onCreateFakemonToggle()}}>Display Details</button>}
             </div>

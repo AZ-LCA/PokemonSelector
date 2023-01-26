@@ -9,6 +9,7 @@ export default class App extends Component {
     super(props)
 
     this.state={
+      search: '',
       filter: 'all',
       mainList: [],
       allUrls: [],
@@ -99,7 +100,7 @@ export default class App extends Component {
     
   }
   componentDidMount() {
-    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1008';
+    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279';
     axios.get(apiURL).then(response => response.data)
     .then(result => {
       return result.results
@@ -120,8 +121,11 @@ export default class App extends Component {
           mainList: [...prevState.mainList, item]
         }
       })
-    })}))
-    ).catch(err => {
+    })}))).then(() => {this.setState(prevState => {
+      return {
+        mainList: prevState.mainList.sort((a, b) => (a.id < b.id) ? 1 : -1)
+      }
+    })}).catch(err => {
       console.log(err)
     })
 

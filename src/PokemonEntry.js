@@ -9,7 +9,8 @@ function PokemonEntry(props) {
                 {props.pokemon.id && <h4>Dex Number: {props.pokemon.id}</h4>}
             </div>
             <div>
-                {props.pokemon.id && <><Starred isStarred={props.isStarred} pokemon={props.pokemon} onStarToggle={props.onStarToggle}/><button onClick={() => {props.onDetailsClick(props.pokemon)}}>Details</button></>}
+                {props.pokemon.id && <Starred isStarred={props.isStarred} pokemon={props.pokemon} onStarToggle={props.onStarToggle}/>}
+                <button onClick={() => {props.onDetailsClick(props.pokemon)}}>Details</button>
                 {!props.pokemon.id && <button onClick={() => {props.onEditFakemon(props.pokemon)}}>Edit</button>}
                 {!props.pokemon.id && <button onClick={() => props.onDeleteFakemon(props.pokemon)}>Delete</button>}
             </div>

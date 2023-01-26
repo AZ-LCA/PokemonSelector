@@ -71,3 +71,32 @@ input {
 .star-button {
   grid-column: 4 / span 1;
 }
+.details-display {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 4px auto;
+  display: grid;
+  grid-template-rows: 1fr 4fr 3fr;
+  grid-template-columns: 1fr 1fr;
+  animation: darker_colors 100s infinite;
+  box-shadow: 4px 4px 10px 4px rgba(0,0,0,0.2);
+}
+.details-img {
+  width: 12vw;
+  margin: auto;
+  border:1px solid #dddddd;
+  border-radius: 6px;
+  padding: 6px;
+}
+.details-text {
+  padding: 4px;
+  margin: auto;
+}
+.hidden-overflow {
+  height: 100px;
+  overflow-y: scroll;
+  border:1px solid #dddddd;
+  border-radius: 6px;
+  padding: 4px;
+  margin: 4px;
+}

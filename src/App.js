@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PokemonList from './PokemonList';
 import axios from 'axios';
 import CreateFakemon from './CreateFakemon';
+import PokemonDetails from './PokemonDetails';
 
 export default class App extends Component {
   constructor(props) {
@@ -15,10 +16,20 @@ export default class App extends Component {
       userInput: '',
       chosenPokemon: {},
       createFakemon: false,
+      showDetails: false,
       fakemonName: '',
       fakemonMoves: ['','','',''],
       fakemonAbility: ''
     }
+  }
+  handleDetailsClick = (pokemon) => {
+    this.setState(prevState => {
+      return {
+        chosenPokemon: pokemon,
+        showDetails: !prevState.showDetails
+      }
+
+    })
   }
   handleEditFakemonName = (e) => {
     this.setState({
@@ -121,6 +132,7 @@ export default class App extends Component {
       <div className='pokemon-selector-app'>
         <div className='pokemon-list'>
           <PokemonList 
+          onDetailsClick = {this.handleDetailsClick}
           onDeleteFakemon = {this.handleDeleteClick}
           onEditFakemon = {this.handleEditClick}
           isCreateFakemon = {this.state.createFakemon}
@@ -135,13 +147,13 @@ export default class App extends Component {
           onSearchClick = {this.handleSearchClick}/>
         </div>
         <div className='pokemon-details'>
+          {!this.state.createFakemon && <PokemonDetails pokemon={this.state.chosenPokemon}/>}
           {this.state.createFakemon && <CreateFakemon 
           onEditFakemonName = {this.handleEditFakemonName}
           onNewFakemon = {this.handleNewFakemon}
           fakemonName={this.state.fakemonName} 
           fakemonMoves={this.state.fakemonMoves} 
           fakemonAbility={this.state.fakemonAbility}/>}
-          {!this.state.createFakemon && <h1>Pokémon Details</h1>}
         </div>
       </div>
       </>

@@ -17,6 +17,7 @@ export default class PokemonList extends Component {
 
         const dispPokemon = pkmnList.map((pokemon, index) => {
             return <PokemonEntry 
+            onDetailsClick = {this.props.onDetailsClick}
             onDeleteFakemon = {this.props.onDeleteFakemon}
             onEditFakemon = {this.props.onEditFakemon}
             key={index}

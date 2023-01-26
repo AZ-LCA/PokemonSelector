@@ -1,5 +1,11 @@
 # Project Overview
 
+## Install
+
+1. Fork and Clone this repo (clone with $ git clone {github repo url})
+2. In terminal cd to the new folder
+3. in terminal type $ npm install
+4. in terminal after npm is installed, type $ npm start to run it
 ## Plan
 
 I wanted to create a website that would allow users to view information about any pokémon (or form i.e. megas or regional variants) such as their potential moves and abilities. In addition I wanted to give users the oppurtunity to create their own fakemon.

@@ -23,6 +23,7 @@ export default class App extends Component {
       fakemonAbility: ''
     }
   }
+  //This handles when the user clicks the details button located in PokemonEntry
   handleDetailsClick = (pokemon) => {
     this.setState(prevState => {
       return {
@@ -32,11 +33,13 @@ export default class App extends Component {
 
     })
   }
+  //This handles when the user types in the fakemon's name when creating it
   handleEditFakemonName = (e) => {
     this.setState({
       fakemonName: e.target.value
     })
   }
+  //This handles when the user clicks the delete button in PokemonEntry (Only for fakemon)
   handleDeleteClick = (fakemon) => {
     const index = this.state.starredList.indexOf(fakemon);
     const starredList = this.state.starredList.slice();
@@ -45,6 +48,7 @@ export default class App extends Component {
       starredList: starredList
     })
   }
+  //This handles when the user clicks the edit button in PokemonEntry (Only for fakemon)
   handleEditClick = (fakemon) => {
     const newName = window.prompt("Enter a new Fakemon Name: ");
     const index = this.state.starredList.indexOf(fakemon);
@@ -54,6 +58,7 @@ export default class App extends Component {
       starredList: starredList
     })
   }
+  //This handles when the user clicks the create fakemon button in CreateFakemon
   handleNewFakemon = (e) => {
     e.preventDefault()
     const name = this.state.fakemonName;
@@ -64,6 +69,7 @@ export default class App extends Component {
       }
     })
   }
+  //This toggles the create fakemon page
   handleCreateFakemonToggle = () => {
     this.setState(prevState => {
       return {
@@ -71,11 +77,13 @@ export default class App extends Component {
       }
     });
   }
+  //This changes the filter, which affects whether the mainList or starredList is displayed
   handleFilterChange = (filter) => {
     this.setState({
       filter: filter
     })
   }
+  //This handles toggling whether a pokémon is starred or not when the star button is clicked in PokemonEntry
   handleStarToggle = (pokemon) => {
     const starredList = this.state.starredList.slice();
     const pkmnIndex = starredList.indexOf(pokemon);
@@ -88,17 +96,15 @@ export default class App extends Component {
       starredList: starredList
     })
   }
+  //This handles the user input when filtering the mainList
   handleSearchInput = (e) => {
     const input = e.target.value;
     this.setState({
       search: input
     })
   }
-  handleSearchClick = (e) => {
-    e.preventDefault();
-    console.log(this.state.mainList.length)
-    
-  }
+  //This calls when the component has mounted
+  //Called twice when using React.StrictMode so I got rid of it, which fixed my code
   componentDidMount() {
     const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279';
     axios.get(apiURL).then(response => response.data)
@@ -128,8 +134,8 @@ export default class App extends Component {
     })}).catch(err => {
       console.log(err)
     })
-
   }
+  //Renders all of my components
   render() {
     return (
       <>
@@ -147,8 +153,7 @@ export default class App extends Component {
           starredList = {this.state.starredList} 
           mainList = {this.state.mainList} 
           search = {this.state.search} 
-          onSearchInput = {this.handleSearchInput} 
-          onSearchClick = {this.handleSearchClick}/>
+          onSearchInput = {this.handleSearchInput}/>
         </div>
         <div className='pokemon-details'>
           {!this.state.createFakemon && <PokemonDetails pokemon={this.state.chosenPokemon}/>}

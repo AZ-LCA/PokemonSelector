@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Project Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Plan
 
-## Available Scripts
+I wanted to create a website that would allow users to view information about any pokémon (or form i.e. megas or regional variants) such as their potential moves and abilities. In addition I wanted to give users the oppurtunity to create their own fakemon.
 
-In the project directory, you can run:
+## Achieved Techincal Goals
 
-### `npm start`
+Add a new item to a list - Done
+Mark the item as complete/favorite/(watch, read, listen) later/flag/etc - Done
+Edit an item from a list - Done
+Remove an item from a list - Done
+Clear/delete all items - Done
+Clear/delete only marked items - Done
+Fetch data from at least one 3rd party API using Axios or fetch. - Done
+Make frequent Git commits with descriptive messages, explaining your commit. - Done
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## User stories
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+As a user, I want to be able to search for specific pokémon
 
-### `npm test`
+As a user, I want to be able to star a pokémon
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+As a user, I want to be able to view a pokémon's details
 
-### `npm run build`
+As a user, I want to be able to unstar a pokémon
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+As a user, I want to be able to make a fakemon
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+As a user, I want to be able to edit a fakemon
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+As a user, I want to be able to delete a fakemon
 
-### `npm run eject`
+As a user, I want to be able to use the website without lag after the initial setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+All achieved
+## Future Goals
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Expand upon the fakemon creation method - types, moves, abilities - EXTRA - give users the oppurtunity to make their own sprites for their fakemon - SUPER EXTRA - make users enter keywords and have a program draw the fakemon for them
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Add pokémon types to the details view
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Make the website multipage via React Router
 
-## Learn More
+- Refactor code to use React Hooks
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Make different list displays easier to tell apart
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## New concepts learned
 
-### Code Splitting
+The PokeApi I used for this project makes use of urls within its data structures, that lead to more datastructures. In my first version of the project, I wasn't navigating the api efficiently, which caused all sorts of issues. I ultimately decided to cut my losses and restart my project with a new goal in mind: do all my axios calls during the page's initial render and sotre all pokémon in a mainList. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```js
+  componentDidMount() {
+    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279';
+    axios.get(apiURL).then(response => response.data)
+    .then(result => {
+      return result.results
+    }).then(results => {
+      const urls = results.map(result => {
+        return result.url
+      })
+      return urls
+    }).then(urls => {
+      this.setState({
+        allUrls: urls
+      })
+      return urls;
+    }).then(urls => Promise.all(urls.map((url) => {axios.get(url).then(response => {
+      const item = response.data;
+      this.setState(prevState => {
+        return{
+          mainList: [...prevState.mainList, item]
+        }
+      })
+    })}))).then(() => {this.setState(prevState => {
+      return {
+        mainList: prevState.mainList.sort((a, b) => (a.id < b.id) ? 1 : -1)
+      }
+    })}).catch(err => {
+      console.log(err)
+    })
+  }
+```
 
-### Analyzing the Bundle Size
+This chunk of code solved my API issues - More Specifically, Promise.all(urls.map((url) => {axios.get(url)...})
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+Promise.all will wait until all promises are resolved (successfully or not). Within the Promise.all, I used map to get the data from each url in the 1279 long urls array. Then I used this.setState(prevState => {}) to append this.state.mainList
+## Interface
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+I have removed the search button as it wasn't necessary
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Interface Image 1](public/Interface1.png)
+![Interface Image 2](public/Interface2.png)

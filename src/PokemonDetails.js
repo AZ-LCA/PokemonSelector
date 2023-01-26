@@ -1,6 +1,7 @@
 import InfoContainer from './InfoContainer';
-
+//Functional component as no need for states since eerything is defined in App.js
 function PokemonDetails(props) {
+    //This gets the pokemon's move names and ability names
     let moves;
     let abilities;
     console.log(props.pokemon)

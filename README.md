@@ -1,5 +1,16 @@
 # Project Overview
 
+## Technologies Used
+
+- React
+- Axios - (axios.call + Promise.all)
+- Classes
+- Functions
+- React states
+- React props
+- React Hoisting
+- Cache-control + max-age
+
 ## Goals
 
 Learn more about axois calls

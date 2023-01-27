@@ -1,5 +1,13 @@
 # Project Overview
 
+## Goals
+
+Learn more about axois calls
+
+Become more familiar with class and functional components in React
+
+Learn abt cache-control
+
 ## Install
 
 1. Fork and Clone this repo (clone with $ git clone {github repo url})
@@ -99,3 +107,39 @@ I have removed the search button as it wasn't necessary
 
 ![Interface Image 1](public/Interface1.png)
 ![Interface Image 2](public/Interface2.png)
+
+### Example Code for caching data
+
+npm install node-cache
+import node-cache
+```js
+
+const request = require('request');
+const NodeCache = require('node-cache');
+const API_ENDPOINT = 'http://pokeapi.co/api/v2/pokemon/';
+const cache = new NodeCache();
+
+// try getting data from the cache first
+cache.get('my-pokemon', (err, data) => {
+  
+  // return early if there's an error or data is available
+  if (err) return console.log(err);
+  if (data) return console.log('Obtained data from cache:', data);
+
+  // if no error, but data was not found, make the API request
+  request(API_ENDPOINT, (error, response, body) => {
+    
+    // if successful, store the body in the cache
+    if (!error && response.statusCode === 200) {
+      
+      cache.set('my-pokemon', body, (err, success) => {
+        
+        // return early if there's an error or no success
+        if (err || !success) return console.log(err);
+        
+        console.log('Queried API, stored data in cache', body);
+      });
+    }
+  });
+});
+```

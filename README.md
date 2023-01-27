@@ -32,12 +32,19 @@ I wanted to create a website that would allow users to view information about an
 ## Achieved Techincal Goals
 
 Add a new item to a list - Done
+
 Mark the item as complete/favorite/(watch, read, listen) later/flag/etc - Done
+
 Edit an item from a list - Done
+
 Remove an item from a list - Done
+
 Clear/delete all items - Done
+
 Clear/delete only marked items - Done
+
 Fetch data from at least one 3rd party API using Axios or fetch. - Done
+
 Make frequent Git commits with descriptive messages, explaining your commit. - Done
 
 ## User stories

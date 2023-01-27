@@ -13,7 +13,7 @@
 
 ## Goals
 
-Learn more about axois calls
+Learn more about axios calls
 
 Become more familiar with class and functional components in React
 

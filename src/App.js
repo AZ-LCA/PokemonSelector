@@ -138,7 +138,8 @@ export default class App extends Component {
   handleClearClick = (e) => {
     e.preventDefault()
     this.setState({
-      starredList: []
+      starredList: [],
+      clearList: []
     })
   }
   //This calls when the component has mounted

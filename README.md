@@ -3,7 +3,7 @@
 ## Technologies Used
 
 - React
-- Axios - (axios.call + Promise.all)
+- Axios - (axios.get + Promise.all)
 - Classes
 - Functions
 - React states

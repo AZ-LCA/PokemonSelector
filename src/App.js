@@ -3,7 +3,6 @@ import PokemonList from './PokemonList';
 import axios from 'axios';
 import CreateFakemon from './CreateFakemon';
 import PokemonDetails from './PokemonDetails';
-
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -145,34 +144,34 @@ export default class App extends Component {
   //This calls when the component has mounted
   //Called twice when using React.StrictMode so I got rid of it, which fixed my code
   componentDidMount() {
-    const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1279';
-    axios.get(apiURL).then(response => response.data)
-    .then(result => {
-      return result.results
-    }).then(results => {
-      const urls = results.map(result => {
-        return result.url
-      })
-      return urls
-    }).then(urls => {
-      this.setState({
-        allUrls: urls
-      })
-      return urls;
-    }).then(urls => Promise.all(urls.map((url) => {axios.get(url).then(response => {
-      const item = response.data;
-      this.setState(prevState => {
-        return{
-          mainList: [...prevState.mainList, item]
+      const apiURL = 'https://pokeapi.co/api/v2/pokemon?offset=386&limit=107';
+      axios.get(apiURL).then(response => response.data)
+      .then(result => {
+        return result.results
+      }).then(results => {
+        const urls = results.map(result => {
+          return result.url
+        })
+        return urls
+      }).then(urls => {
+        this.setState({
+          allUrls: urls
+        })
+        return urls;
+      }).then(urls => Promise.all(urls.map((url) => {axios.get(url).then(response => {
+        const item = response.data;
+        this.setState(prevState => {
+          return{
+            mainList: [...prevState.mainList, item]
+          }
+        })
+      })}))).then(() => {this.setState(prevState => {
+        return {
+          mainList: prevState.mainList.sort((a, b) => (a.id < b.id) ? 1 : -1)
         }
+      })}).catch(err => {
+        console.log(err)
       })
-    })}))).then(() => {this.setState(prevState => {
-      return {
-        mainList: prevState.mainList.sort((a, b) => (a.id < b.id) ? 1 : -1)
-      }
-    })}).catch(err => {
-      console.log(err)
-    })
   }
   //Renders all of my components
   render() {
